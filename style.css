@@ -17,7 +17,7 @@ body {
 
 .calulator-body
 {
-    height: 472px;
+    height: 530px;
     width: 300px;
     border: 3px solid #212121;
     border-radius: 25px;
@@ -69,9 +69,36 @@ body {
     box-shadow: 5px 5px 12px rgba(0, 0, 0, 0.5);
 }
 
+#equals
+{
+    width: 8rem;
+    border-radius: 60px;
+}
+
 .btn:hover
 {
     background-color: #BDBDBD;
+    color: black;
+    transform: translateY(-4px);
+}
+
+.clear:hover
+{
+    background-color: #F08080;
+    color: black;
+    transform: translateY(-4px);
+}
+
+.operand:hover
+{
+    background-color: #48D1CC;
+    color: black;
+    transform: translateY(-4px);
+}
+
+.equals:hover
+{
+    background-color: #32CD32;
     color: black;
     transform: translateY(-4px);
 }
@@ -80,3 +107,4 @@ body {
 {
     transform: translateY(4px);
 }
+
