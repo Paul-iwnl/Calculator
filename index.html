@@ -3,6 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="./style.css">
     <title>Calculator</title>
 </head>
@@ -10,38 +13,40 @@
     <div class = "body">
         <div class = "calulator-body">
             <div class = "screen">
-
+                <p class = "screen-top"></p>
+                <p class = "screen-bottom"></p>
             </div>
             <div class="first row">
-                <button id="AC" class="clear btn">AC</button>
-                <button id="C" class="clear btn">C</button>
-                <button id="mod" class="operand btn">%</button>
-                <button id="divide" class="operand btn">÷</button>
+                <button id="AC" class="clear btn" onclick="updateCurrentDigit('AC')">AC</button>
+                <button id="C" class="clear btn" onclick="updateCurrentDigit('C')">C</button>
+                <button id="mod" class="operand btn" onclick="updateOperand('%')">%</button>
+                <button id="divide" class="operand btn" onclick="updateOperand('÷')">÷</button>
             </div>
             <div class="second row">
-                <button id="seven" class="btn">7</button>
-                <button id="eight" class="btn">8</button>
-                <button id="nine" class="btn">9</button>
-                <button id="add" class="operand btn">+</button>
+                <button id="seven" class="btn" onclick="updateCurrentDigit(7)">7</button>
+                <button id="eight" class="btn" onclick="updateCurrentDigit(8)">8</button>
+                <button id="nine" class="btn" onclick="updateCurrentDigit(9)">9</button>
+                <button id="add" class="operand btn" onclick="updateOperand('+')">+</button>
             </div>
             <div class="third row">
-                <button id="four" class="btn">4</button>
-                <button id="five" class="btn">5</button>
-                <button id="six" class="btn">6</button>
-                <button id="minus" class="operand btn">-</button>
+                <button id="four" class="btn" onclick="updateCurrentDigit(4)">4</button>
+                <button id="five" class="btn" onclick="updateCurrentDigit(5)">5</button>
+                <button id="six" class="btn" onclick="updateCurrentDigit(6)">6</button>
+                <button id="minus" class="operand btn" onclick="updateOperand('-')">-</button>
             </div>
             <div class="forth row">
-                <button id="one" class="btn">1</button>
-                <button id="two" class="btn">2</button>
-                <button id="three" class="btn">3</button>
-                <button id="multiply" class="operand btn">x</button>
+                <button id="one" class="btn" onclick="updateCurrentDigit(1)">1</button>
+                <button id="two" class="btn" onclick="updateCurrentDigit(2)">2</button>
+                <button id="three" class="btn" onclick="updateCurrentDigit(3)">3</button>
+                <button id="multiply" class="operand btn" onclick="updateOperand('x')">x</button>
             </div>
             <div class="fifth row">
-                <button id="zero" class="btn">0</button>
+                <button id="zero" class="btn" onclick="updateCurrentDigit(0)">0</button>
                 <button id="point" class="btn">.</button>
                 <button id="equals" class="equals btn">=</button>
             </div>
         </div>
     </div>
+    <script src="./script.js"></script>
 </body>
 </html>
