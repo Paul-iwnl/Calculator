@@ -1,6 +1,8 @@
 # Calculator Project
 
-![Calculator](https://paul-iwnl.github.io/Calculator/)
+## Live Demo
+
+Check out the live demo of the calculator: [Calculator](https://paul-iwnl.github.io/Calculator/)
 
 ## Overview
 
