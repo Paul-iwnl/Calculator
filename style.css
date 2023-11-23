@@ -41,7 +41,7 @@ body {
     font-family: 'Orbitron', sans-serif;
 }
 
-.screen-top
+.previous-operand
 {
     width: 100%;
     height: 40%;
@@ -52,7 +52,7 @@ body {
     color: #3E7570;
 }
 
-.screen-bottom
+.current-operand
 {
     width: 100%;
     height: 60%;
@@ -93,7 +93,7 @@ body {
     box-shadow: 5px 5px 12px rgba(0, 0, 0, 0.5);
 }
 
-#equals
+.equals
 {
     width: 8rem;
     border-radius: 60px;

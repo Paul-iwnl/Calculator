@@ -1,89 +1,157 @@
-function updateCurrentDigit(num) 
+class Calculator 
 {
-    if(num >= 0 && num <=9)
+    constructor(previousOperandTextElement, currentOperandTextElement) 
     {
-        currentDigit = currentDigit * 10 + num;
-        currentDigitUpdate();
+        this.previousOperandTextElement = previousOperandTextElement;
+        this.currentOperandTextElement = currentOperandTextElement;
+        this.clear();
     }
-    if(num == 'AC')
+
+    clear() 
     {
-        currentDigit = null;
-        previousDigit = null;
-        currentDigitUpdate();
-        previousDigitUpdate();
+        this.currentOperand = "";
+        this.previousOperand = "";
+        this.operation = undefined;
     }
-    if(num =='C')
+
+    delete() 
     {
-        currentDigit = Math.floor(currentDigit/10);
-        if(currentDigit == 0)
+        this.currentOperand = this.currentOperand.toString().slice(0, -1);
+    }
+
+    appendNumber(number) 
+    {
+        if (number === "." && this.currentOperand.includes(".")) return;
+        this.currentOperand = this.currentOperand.toString() + number.toString();
+    }
+
+    chooseOperation(operation) 
+    {
+        if (this.currentOperand === "") 
+            return;
+        if (this.previousOperand !== "") 
         {
-            currentDigit = null;
+            this.compute();
         }
-        currentDigitUpdate();
+        this.operation = operation;
+        this.previousOperand = this.currentOperand;
+        this.currentOperand = "";
     }
-}
 
-function updateOperand(operand)
-{
-    previousDigitUpdate();
-    if (operand == '+')
+    compute() 
     {
-        addition(previousDigit,currentDigit);
+        let computation;
+        const prev = parseFloat(this.previousOperand);
+        const current = parseFloat(this.currentOperand);
+        if (isNaN(prev) || isNaN(current)) 
+            return;
+        switch (this.operation) 
+        {
+            case "+":
+                computation = prev + current;
+                break;
+            case "-":
+                computation = prev - current;
+                break;
+            case "*":
+                computation = prev * current;
+                break;
+            case "÷":
+                computation = prev / current;
+                break;
+            case "%":
+                computation = prev % current;
+                break;
+            default:
+                return;
+        }
+        this.currentOperand = computation;
+        this.operation = undefined;
+        this.previousOperand = "";
     }
-    if(operand == '-')
+
+    getDisplayNumber(number) 
     {
-        substraction(previousDigit,currentDigit);
+        const stringNumber = number.toString();
+        const integerDigits = parseFloat(stringNumber.split(".")[0]);
+        const decimalDigits = stringNumber.split(".")[1];
+        let integerDisplay;
+        if (isNaN(integerDigits)) 
+        {
+            integerDisplay = "";
+        } 
+        else 
+        {
+            integerDisplay = integerDigits.toLocaleString("en", {
+                maximumFractionDigits: 0,
+            });
+        }
+        if (decimalDigits != null) 
+        {
+            return `${integerDisplay}.${decimalDigits}`;
+        }
+        else 
+        {
+            return integerDisplay;
+        }
     }
-    if(operand == 'x')
+
+    updateDisplay() 
     {
-        multiplication(previousDigit,currentDigit);
+        this.currentOperandTextElement.innerText = this.getDisplayNumber(this.currentOperand);
+        if (this.operation != null) 
+        {
+            this.previousOperandTextElement.innerText = `${this.getDisplayNumber(this.previousOperand)}${this.operation}`;
+        } 
+        else 
+        {
+            this.previousOperandTextElement.innerText = "";
+        }
     }
-    if(operand == '÷')
+}
+
+const numberButtons = document.querySelectorAll("[data-number]");
+const operationButtons = document.querySelectorAll("[data-operation]");
+const equalsButton = document.querySelector("[data-equals]");
+const deleteButton = document.querySelector("[data-delete]");
+const allClearButton = document.querySelector("[data-all-clear]");
+const previousOperandTextElement = document.querySelector("[data-previous-operand]");
+const currentOperandTextElement = document.querySelector("[data-current-operand]");
+
+const calculator = new Calculator(previousOperandTextElement,currentOperandTextElement);
+
+numberButtons.forEach((button) => 
+{
+    button.addEventListener("click", () => 
     {
-        division(previousDigit,currentDigit);
-    }
-    if(operand == '%')
+        calculator.appendNumber(button.innerText);
+        calculator.updateDisplay();
+    });
+});
+
+operationButtons.forEach((button) => 
+{
+    button.addEventListener("click", () => 
     {
-        mod(previousDigit,currentDigit);
-    }
-}
+        calculator.chooseOperation(button.innerText);
+        calculator.updateDisplay();
+    });
+});
 
-
-function currentDigitUpdate() 
+equalsButton.addEventListener("click", (button) => 
 {
-    var currentDigitElement = document.getElementsByClassName("screen-bottom")[0];
-    currentDigitElement.textContent = currentDigit;
-}
+    calculator.compute();
+    calculator.updateDisplay();
+});
 
-function previousDigitUpdate()
+allClearButton.addEventListener("click", (button) => 
 {
-    var previousDigitElement = document.getElementsByClassName("screen-top")[0];
-    previousDigit = currentDigit;
-    previousDigitElement.textContent = previousDigit;
-    currentDigit = null;
-    currentDigitUpdate();
-}
+    calculator.clear();
+    calculator.updateDisplay();
+});
 
-function addition(previousDigit,currentDigit)
+deleteButton.addEventListener("click", (button) => 
 {
-
-}
-function substraction(previousDigit,currentDigit)
-{
-
-}
-function multiplication(previousDigit,currentDigit)
-{
-
-}
-function division(previousDigit,currentDigit)
-{
-
-}
-function mod(previousDigit,currentDigit)
-{
-
-}
-
-var currentDigit = 0;
-var previousDigit = 0;
+    calculator.delete();
+    calculator.updateDisplay();
+});
